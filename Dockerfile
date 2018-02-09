@@ -13,7 +13,7 @@ COPY contrib/bin/scl_enable /usr/local/bin/scl_enable
 
 # Install NodeJS
 RUN yum install -y centos-release-scl-rh && \
-    INSTALL_PKGS="rh-nodejs6 rh-nodejs6-npm rh-nodejs6-nodejs-nodemon libffi-devel ruby-devel rubygems" && \
+    INSTALL_PKGS="rh-nodejs6 rh-nodejs6-npm rh-nodejs6-nodejs-nodemon libffi-devel ruby-devel rubygems pango" && \
     ln -s /opt/rh/rh-nodejs6/root/usr/lib/node_modules/nodemon/bin/nodemon.js /usr/bin/nodemon && \
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
