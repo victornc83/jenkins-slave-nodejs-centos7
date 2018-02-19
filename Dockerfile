@@ -7,17 +7,22 @@ ENV NODEJS_VERSION=6.11 \
     PATH=$HOME/node_modules/.bin/:$HOME/.npm-global/bin/:$PATH \
     BASH_ENV=/usr/local/bin/scl_enable \
     ENV=/usr/local/bin/scl_enable \
-    PROMPT_COMMAND=". /usr/local/bin/scl_enable"
+    PROMPT_COMMAND=". /usr/local/bin/scl_enable" \
+    CHROME_BIN=/opt/google/chrome/chrome
 
 COPY contrib/bin/scl_enable /usr/local/bin/scl_enable
 
 # Install NodeJS
 RUN yum install -y centos-release-scl-rh && \
-    INSTALL_PKGS="rh-nodejs6 rh-nodejs6-npm rh-nodejs6-nodejs-nodemon libffi-devel ruby-devel rubygems pango" && \
+    INSTALL_PKGS="rh-nodejs6 rh-nodejs6-npm rh-nodejs6-nodejs-nodemon libffi-devel ruby-devel rubygems" && \
     ln -s /opt/rh/rh-nodejs6/root/usr/lib/node_modules/nodemon/bin/nodemon.js /usr/bin/nodemon && \
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     yum clean all -y
+# Install Google Chrome    
+RUN wget wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm && \
+    yum -y install ./google-chrome-stable_current_x86_64.rpm && \
+    rm -f ./google-chrome-stable_current_x86_64.rpm
 # Install ruby SASS gem dependency
 RUN gem install sass
 # Install AWS-CLI tool
