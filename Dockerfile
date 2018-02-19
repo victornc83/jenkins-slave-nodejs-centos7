@@ -20,7 +20,7 @@ RUN yum install -y centos-release-scl-rh && \
     rpm -V $INSTALL_PKGS && \
     yum clean all -y
 # Install Google Chrome    
-RUN wget wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm && \
+RUN curl -O https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm && \
     yum -y install ./google-chrome-stable_current_x86_64.rpm && \
     rm -f ./google-chrome-stable_current_x86_64.rpm
 # Install ruby SASS gem dependency
